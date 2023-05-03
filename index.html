@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music-Player</title>
+    <script src="https://kit.fontawesome.com/fd373b8e2c.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        .container{
+            width:100%;
+            height:100vh;
+            background: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .musicplayer{
+            width: 400px;
+            padding:25px 35px;
+            text-align: center;
+            background:gray;
+        }
+        nav{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        nav.circle{
+            width:40px;
+            height:40px;
+            line-height: 40px;
+            border-radius: 50%;
+            background: red;
+            color:white;
+            box-shadow: 0 10px 60px rgpa(255,26,26,0.22);
+            
+        }
+        .song{
+            width: 220px;
+            border-radius: 50%;
+            border:8px solid black;
+            box-shadow: 0 10px 60px rgpa(255,26,26,0.22);
+        }
+        .musicplayer h1{
+            font-size: 20px;
+            font-weight: 400;
+            margin-top: 15px;
+            color:black;
+        }
+        .musicplayer p{
+            font-size: 14px;
+            color:#333;
+        }
+        #progress{
+            -webkit-appearance: none;
+            width:100%;
+            height:6px;
+            margin:40px 0;
+            border-radius: 5px;
+            background: black;
+            cursor: pointer;
+        }
+        .controls{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .controls div{
+            width:40px;
+            height:40px;
+            border-radius: 50%;
+            margin:20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color:dark palevioletred;
+            cursor: pointer;
+            color:black;
+            box-shadow: 0 10px 20px rgpa(255,26,26,0.22);
+
+
+        }
+         .controls div:nth-child(2){
+            transform: scale(1.5);
+            background-color: dark palevioletred;
+            coor:black;
+         }
+
+    </style>
+     
+</head>
+<body>
+    <div class="container">
+        <div class="musicplayer">
+            <nav>
+            <div class="circle">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+              <div class="circle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            </nav>
+            <img src="https://images.indianexpress.com/2020/05/rishi-kapoor-karz-1200.jpg?w=389" class="song">
+            <h1>Rishi-Kapoor</h1>
+            <p>De De pyar de pyar de..</p><br>
+            <audio controls id="song">
+                <source src="C:\Users\DELL\Desktop\song1\Song1.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playpause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        let progress=document.getElementById('progress');
+         let song=document.getElementById('song');
+          let ctrlIcon=document.getElementById('ctrlIcon');
+          
+          song.onloadedmetadata = function(){
+            progress.max=song.duration;
+            progress.value=song.currentTime;
+          }
+          function playpause(){
+            if(ctrlIcon.classList.contains("fa-pause")){
+            song.pause();
+            ctrlIcon.classList.remove("fa-pause");
+            ctrlIcon.classList.add("fa-play");
+            }
+            else
+            {
+            song.play();
+            ctrlIcon.classList.add("fa-pause");
+             ctrlIcon.classList.remove("fa-play");
+            }
+          }
+          if(song.play()){
+            setInterval(() => {
+                progress.value=song.currentTime;
+                
+            },500);
+          }
+          progress.onchange=function(){
+            song.play();
+            song.currentTime=progress.value;
+            ctrlIcon.classList.add("fa=pause");
+             ctrlIcon.classList.remove("fa-play");
+            
+          }
+
+    </script>
+   
+</body>
+</html>
